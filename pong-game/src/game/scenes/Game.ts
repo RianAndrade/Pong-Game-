@@ -53,24 +53,45 @@ export class Game extends Scene
       }
     update () {
         
-        let cursors = this.input.keyboard.createCursorKeys();
+        this.cursors = this.input.keyboard.createCursorKeys();
 
-        if (cursors.up.isDown)
-        {   
-            console.log("up")
-            this.player1.setVelocityY(-160);
-            
+        this.keys = this.input.keyboard.addKeys({
+            wDown: 'W',
+            sDown: 'S'
+
+        });
+
+        
+        if( this.keys.wDown.isDown) 
+        {
+            console.log("up do negrom")
+            this.player1.setVelocityY(-160)
         }
-
-        else if (cursors.down.isDown) {
-            console.log("Dawson e Jason")
-            this.player1.setVelocityY(160);
-        }
-
+        else if (this.keys.sDown.isDown) {
+            this.player1.setVelocityY(160)
+        } 
         else{
             this.player1.setVelocityY(0)
         }
 
+        // logica de movimentação do player2 
+
+        if (this.cursors.up.isDown)
+        {   
+            console.log("up")
+            this.player2.setVelocityY(-160);
+            
+        }
+
+        else if (this.cursors.down.isDown) {
+            console.log("Dawson e Jason")
+            this.player2.setVelocityY(160);
+        }
+
+        else{
+            this.player2.setVelocityY(0)
+        }
+        
 
     }
 
