@@ -1,0 +1,12 @@
+
+services:
+  pong:
+    build: ./pong-game/
+    command: npm run dev -- --host
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./pong-game:/pong-game
+    environment:
+      - NODE_ENV=production
+    
