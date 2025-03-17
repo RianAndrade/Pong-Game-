@@ -29,8 +29,8 @@ export class Game extends Scene
 
         // objetos dos jogadores e bola 
         //
-        this.player1 = this.physics.add.sprite(40, 450, 'player');
-        this.player2 = this.physics.add.sprite(984, 450, 'player');
+        this.player1 = this.physics.add.sprite(40, 450, 'player').setImmovable(true);
+        this.player2 = this.physics.add.sprite(984, 450, 'player').setImmovable(true);
         this.bola = this.physics.add.sprite(500, 450, 'bola').setScale(0.5)
      
         //para players e bola colidirem com as bordas do mapa sem sair 
@@ -44,11 +44,18 @@ export class Game extends Scene
         
         this.bola.setBounce(1);
         
+        //movimentação inicial da bola 
+        //aleatoriazar depoisssssssssssssss
+
+        this.bola.setVelocityX(600);
+        this.bola.setVelocityY(50)
+        
         // colisão de litle bolss com players 
 
         this.physics.add.collider(this.player1, this.bola);
         this.physics.add.collider(this.player2, this.bola);
-        
+   
+
         
       }
     update () {
