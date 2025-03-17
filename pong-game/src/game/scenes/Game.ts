@@ -12,23 +12,24 @@ export class Game extends Scene
     {
         this.load.setPath('assets');
         
-        this.load.image('star', 'star.png');
-        this.load.image('background', 'bg.png');
+        this.load.image('player', 'retangulo.jpg');
+        this.load.image('bola', 'bola.png');
         this.load.image('logo', 'logo.png');
     }
 
     create ()
     {
         
-        this.add.image(512, 384, 'background');
+        this.cameras.main.setBackgroundColor("#000fff");
         this.add.image(512, 350, 'logo').setDepth(100);
-        this.add.text(512, 490, 'Make something fun!\nand share it with us:\nsupport@phaser.io', {
-            fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
-            stroke: '#000000', strokeThickness: 8,
-            align: 'center'
-        }).setOrigin(0.5).setDepth(100);
+        let player1 = this.physics.add.sprite(40, 450, 'player');
+        let player2 = this.physics.add.sprite(984, 450, 'player');
+        let bola = this.physics.add.sprite(500, 450, 'bola').setScale(0.5)
         
-        EventBus.emit('current-scene-ready', this);
-
+        //para players e bola colidirem com as bordas do mapa sem sair 
+        
+        player1.setCollideWorldBounds(true);
+        player2.setCollideWorldBounds(true);
+        bola.setCollideWorldBounds(true);
     }
 }
