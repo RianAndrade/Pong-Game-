@@ -1,8 +1,22 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { IRefPhaserGame, PhaserGame } from './game/PhaserGame';
+import { io } from 'socket.io-client'
 
 function App()
 {
+    // Socket no cliente 
+    
+    const url = "http://localhost:4000"
+    const socket = io(url);
+    
+    useEffect(() => {
+        
+        socket.on("connect", () => {
+            console.log("Conectado ao servidor com ID:", socket.id);
+        });
+
+
+    }, []);
 
     //  References to the PhaserGame component (game and scene are exposed)
     const phaserRef = useRef<IRefPhaserGame | null>(null);

@@ -47,8 +47,8 @@ export class Game extends Scene
         //movimentação inicial da bola 
         //aleatoriazar depoisssssssssssssss
 
-        this.bola.setVelocityX(600);
-        this.bola.setVelocityY(50)
+        this.bola.setVelocityX(1000);
+        this.bola.setVelocityY(500)
         
         // colisão de litle bolss com players 
 
@@ -72,10 +72,10 @@ export class Game extends Scene
         if( this.keys.wDown.isDown) 
         {
             console.log("up do negrom")
-            this.player1.setVelocityY(-160)
+            this.player1.setVelocityY(-360)
         }
         else if (this.keys.sDown.isDown) {
-            this.player1.setVelocityY(160)
+            this.player1.setVelocityY(360)
         } 
         else{
             this.player1.setVelocityY(0)
@@ -86,13 +86,13 @@ export class Game extends Scene
         if (this.cursors.up.isDown)
         {   
             console.log("up")
-            this.player2.setVelocityY(-160);
+            this.player2.setVelocityY(-360);
             
         }
 
         else if (this.cursors.down.isDown) {
             console.log("Dawson e Jason")
-            this.player2.setVelocityY(160);
+            this.player2.setVelocityY(360);
         }
 
         else{
