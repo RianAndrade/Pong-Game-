@@ -1,13 +1,36 @@
-import express from 'express'
+import express from 'express';
+import { Server } from 'socket.io';
+import { createServer } from 'http';
+import cors from 'cors';
 
 
-const app = express()
-const port = 4000
+const app = express();
+const httpServer = createServer(app);
+const port = 4000; 
+
+const clientUrl =  "http://localhost:8080"
+app.use(cors({ origin:clientUrl }));
+
+const io = new Server(httpServer , {
+  cors: {
+    origin: clientUrl, 
+    methods: ["GET", "POST"],
+  },
+});
+
+
+io.on("connection", (socket) => {
+    console.log(socket.id)
+
+    socket.on('disconnect', () => {
+        console.log('Cliente desconectado:', socket.id);
+    });
+});
 
 app.get('/', (req, res) => {
   res.send('Hello Worlds!')
 })
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+httpServer.listen(port)
+
+
