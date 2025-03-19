@@ -1,55 +1,52 @@
-import { useRef, useEffect } from 'react';
-import { IRefPhaserGame, PhaserGame } from './game/PhaserGame';
-import { io } from 'socket.io-client'
+import { useRef, useEffect, useState } from "react";
+import { IRefPhaserGame, PhaserGame } from "./game/PhaserGame";
+import { io, Socket } from "socket.io-client";
 
-function App()
-{
-    // Socket no cliente 
+function App() {
+    const url = "http://localhost:4000";
     
-    const url = "http://localhost:4000"
-    const socket = io(url);
+    const [socketId, setSocketId] = useState<string | null>(null);
     
+    const socketRef = useRef<Socket | null>(null);
+
     useEffect(() => {
-        
+        const socket = io(url);
+        socketRef.current = socket; 
+
         socket.on("connect", () => {
             console.log("Conectado ao servidor com ID:", socket.id);
+            setSocketId(socket.id);
         });
 
-
+        return () => {
+            socket.disconnect(); 
+        };
     }, []);
 
-    //  References to the PhaserGame component (game and scene are exposed)
+    // Referência para o PhaserGame
     const phaserRef = useRef<IRefPhaserGame | null>(null);
 
     const addSprite = () => {
-
-        if (phaserRef.current)
-        {
+        if (phaserRef.current) {
             const scene = phaserRef.current.scene;
 
-            if (scene)
-            {
-                // Add a new sprite to the current scene at a random position
+            if (scene) {
                 const x = Phaser.Math.Between(64, scene.scale.width - 64);
                 const y = Phaser.Math.Between(64, scene.scale.height - 64);
-    
-                //  `add.sprite` is a Phaser GameObjectFactory method and it returns a Sprite Game Object instance
-                const star = scene.add.sprite(x, y, 'star');
-    
+                scene.add.sprite(x, y, "star");
             }
         }
-    }
+    };
 
     return (
         <div id="app">
             <PhaserGame ref={phaserRef} />
             <div>
-                <div>
-                    <button className="button" onClick={addSprite}>Add New Sprite</button>
-                </div>
+                <div>Socket ID: {socketId ?? "Desconectado"}</div>
             </div>
         </div>
-    )
+    );
 }
 
-export default App
+export default App;
+
