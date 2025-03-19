@@ -1,5 +1,7 @@
 import { Scene } from 'phaser';
 import { EventBus } from '../EventBus';
+import { io, Socket } from "socket.io-client";
+
 
 export class Game extends Scene
 {
@@ -23,12 +25,19 @@ export class Game extends Scene
 
     create ()
     {
-        
+        const url = "http://localhost:4000";
+        this.socket = io(url);
+  
+        this.socket.on("connect", () => {
+            console.log("Conectado ao servidor com ID:", this.socket.id);
+        });
+
+  
         this.cameras.main.setBackgroundColor("#000fff");
         
 
         // objetos dos jogadores e bola 
-        //
+
         this.player1 = this.physics.add.sprite(40, 450, 'player').setImmovable(true);
         this.player2 = this.physics.add.sprite(984, 450, 'player').setImmovable(true);
         this.bola = this.physics.add.sprite(500, 450, 'bola').setScale(0.5)
@@ -48,7 +57,7 @@ export class Game extends Scene
         //aleatoriazar depoisssssssssssssss
 
         this.bola.setVelocityX(1000);
-        this.bola.setVelocityY(500)
+        this.bola.setVelocityY(50)
         
         // colisão de litle bolss com players 
 
