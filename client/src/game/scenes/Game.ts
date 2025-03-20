@@ -1,7 +1,7 @@
 import { Scene } from 'phaser';
 import { EventBus } from '../EventBus';
 import { io, Socket } from "socket.io-client";
-
+import throttle from 'lodash/throttle'
 
 export class Game extends Scene
 {
@@ -31,6 +31,10 @@ export class Game extends Scene
         this.socket.on("connect", () => {
             console.log("Conectado ao servidor com ID:", this.socket.id);
         });
+
+        const roomId = "5555"
+
+        this.socket.emit("joinRoom", roomId)
 
   
         this.cameras.main.setBackgroundColor("#000fff");
@@ -76,15 +80,22 @@ export class Game extends Scene
             sDown: 'S'
 
         });
+        
+        const emitWDown = throttle(() => {
+            this.socket.emit("wDown", "click w")
+        }, 150);
 
+        const emitSDown = throttle(() => {
+            this.socket.emit("sDown", "click S")
+        }, 150)
         
         if( this.keys.wDown.isDown) 
         {
-            this.socket.emit("wDown", "click w")
+            emitWDown();
         }
 
         else if (this.keys.sDown.isDown) {
-            this.socket.emit("sDown", "click s")
+            emitSDown()
         } 
  
         this.socket.on("wDownResponse", () => {
