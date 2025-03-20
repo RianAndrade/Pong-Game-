@@ -28,12 +28,12 @@ io.on("connection", (socket) => {
 
     socket.on("wDown", (arg) => {
       console.log(arg); 
-      socket.emit("wDownResponse", true)
+      io.emit("wDownResponse")
     });
     
     socket.on("sDown", (arg) => {
       console.log(arg)
-      socket.emit("wDownResponse", true)
+      io.emit("sDownResponse")
     })
 
 });

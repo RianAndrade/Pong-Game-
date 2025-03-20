@@ -81,21 +81,21 @@ export class Game extends Scene
         if( this.keys.wDown.isDown) 
         {
             this.socket.emit("wDown", "click w")
-            this.player1.setVelocityY(-360)
         }
 
-        if( this.socket.on("wDownResponse")) 
-        {
-            console.log("recebiiiii")
-
-        }
         else if (this.keys.sDown.isDown) {
             this.socket.emit("sDown", "click s")
-            this.player1.setVelocityY(360)
         } 
-        else{
-            this.player1.setVelocityY(0)
-        }
+ 
+        this.socket.on("wDownResponse", () => {
+            console.log("W clicado")
+            this.player1.setVelocityY(-360)
+        })
+
+        this.socket.on("sDownResponse", () => {
+            console.log("S clicado")
+            this.player1.setVelocityY(360)
+        })
 
         // logica de movimentação do player2 
 
