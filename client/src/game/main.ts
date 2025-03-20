@@ -1,4 +1,5 @@
 import { Game as MainGame } from './scenes/Game';
+import { StartGame as Start } from './scenes/StartGame'
 import { AUTO, Game, Types } from 'phaser';
 
 //  Find out more information about the Game Config at:
@@ -19,6 +20,7 @@ const config: Types.Core.GameConfig = {
         }
     },
     scene: [
+        Start,
         MainGame
     ]
 };

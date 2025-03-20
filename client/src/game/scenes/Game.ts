@@ -1,6 +1,6 @@
 import { Scene } from 'phaser';
 import { EventBus } from '../EventBus';
-import { io, Socket } from "socket.io-client";
+import socket from '../../socketService';
 import throttle from 'lodash/throttle'
 
 export class Game extends Scene
@@ -11,7 +11,6 @@ export class Game extends Scene
         this.player1 = null;
         this.player2 = null;
         this.bola = null;
-        this.wKey = null
     }
 
     preload ()
@@ -25,18 +24,7 @@ export class Game extends Scene
 
     create ()
     {
-        const url = "http://localhost:4000";
-        this.socket = io(url);
-  
-        this.socket.on("connect", () => {
-            console.log("Conectado ao servidor com ID:", this.socket.id);
-        });
 
-        const roomId = "5555"
-
-        this.socket.emit("joinRoom", roomId)
-
-  
         this.cameras.main.setBackgroundColor("#000fff");
         
 
@@ -82,28 +70,28 @@ export class Game extends Scene
         });
         
         const emitWDown = throttle(() => {
-            this.socket.emit("wDown", "click w")
+            socket.emit("wDown", "click w")
         }, 150);
 
         const emitSDown = throttle(() => {
-            this.socket.emit("sDown", "click S")
+            socket.emit("sDown", "click S")
         }, 150)
         
-        if( this.keys.wDown.isDown) 
+        if(Phaser.Input.Keyboard.JustDown(this.keys.wDown)) 
         {
             emitWDown();
         }
 
-        else if (this.keys.sDown.isDown) {
+        else if (Phaser.Input.Keyboard.JustDown(this.keys.sDown)) {
             emitSDown()
         } 
  
-        this.socket.on("wDownResponse", () => {
+        socket.on("wDownResponse", () => {
             console.log("W clicado")
             this.player1.setVelocityY(-360)
         })
 
-        this.socket.on("sDownResponse", () => {
+        socket.on("sDownResponse", () => {
             console.log("S clicado")
             this.player1.setVelocityY(360)
         })
