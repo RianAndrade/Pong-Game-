@@ -80,10 +80,17 @@ export class Game extends Scene
         
         if( this.keys.wDown.isDown) 
         {
-            console.log("up do negrom")
+            this.socket.emit("wDown", "click w")
             this.player1.setVelocityY(-360)
         }
+
+        if( this.socket.on("wDownResponse")) 
+        {
+            console.log("recebiiiii")
+
+        }
         else if (this.keys.sDown.isDown) {
+            this.socket.emit("sDown", "click s")
             this.player1.setVelocityY(360)
         } 
         else{
@@ -94,13 +101,10 @@ export class Game extends Scene
 
         if (this.cursors.up.isDown)
         {   
-            console.log("up")
             this.player2.setVelocityY(-360);
             
         }
-
         else if (this.cursors.down.isDown) {
-            console.log("Dawson e Jason")
             this.player2.setVelocityY(360);
         }
 

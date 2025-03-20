@@ -23,8 +23,19 @@ io.on("connection", (socket) => {
     console.log('Cliente conectado:', socket.id)
 
     socket.on('disconnect', () => {
-        console.log('Cliente desconectado:', socket.id);
+      console.log('Cliente desconectado:', socket.id);
     });
+
+    socket.on("wDown", (arg) => {
+      console.log(arg); 
+      socket.emit("wDownResponse", true)
+    });
+    
+    socket.on("sDown", (arg) => {
+      console.log(arg)
+      socket.emit("wDownResponse", true)
+    })
+
 });
 
 app.get('/', (req, res) => {
