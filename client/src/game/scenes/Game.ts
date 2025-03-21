@@ -64,23 +64,28 @@ export class Game extends Scene
         this.emitArrowDown = throttle(() => {
             socket.emit("arrowDown", "Seta para baixo clicada")
         })
-
+        
+         socket.on("positionsServer", (positions) => {
+            this.player1.setPosition(positions.player1.x, positions.player1.y);
+            this.player2.setPosition(positions.player2.x, positions.player2.y);
+            this.bola.setPosition(positions.bola.x, positions.bola.y);
+        });
 
 
       }
     update () {
 
-        
-        
-        if(Phaser.Input.Keyboard.JustDown(this.keys.wDown)) 
-        {
+
+
+
+        if(Phaser.Input.Keyboard.JustDown(this.keys.wDown)) {
             this.emitWDown();
         }
 
         else if (Phaser.Input.Keyboard.JustDown(this.keys.sDown)) {
             this.emitSDown()
         } 
- 
+
 
         if (Phaser.Input.Keyboard.JustDown(this.cursors.up)) {   
             this.emitArrowUp();

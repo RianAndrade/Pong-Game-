@@ -86,7 +86,7 @@ export class Game extends Scene
                 bola: { x: this.bola.x, y: this.bola.y }
             };
             socket.emit("positionUpdate", positions);
-        }, 100);
+        }, 1);
 
 
         

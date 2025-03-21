@@ -8,7 +8,11 @@ const app = express();
 const httpServer = createServer(app);
 const port = 4000; 
 
-const allowedOrigins = ["http://localhost:8080", "http://localhost:5000"];
+const allowedOrigins = ["http://localhost:8080",
+                        "http://localhost:5000",
+                        "http://192.168.137.29:8080",
+                        "http://192.168.137.29:5000",
+                        "http://192.168.137.29:4000"];
 
 app.use(cors({ origin: allowedOrigins }));
 
@@ -86,8 +90,8 @@ io.on("connection", (socket) => {
     })
 
     socket.on("positionUpdate", (positions) => {
-        io.to("5555").emit("positionUpdate", positions);
-    })
+        io.emit("positionsServer", positions);
+            })
 
 });
 
