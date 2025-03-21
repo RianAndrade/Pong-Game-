@@ -17,7 +17,7 @@ socket.on("disconnect", () => {
 });
 
 // Emissão para se juntar à sala '5555'
-const roomId = "5555";
+const roomId = "7777";
 socket.emit("joinRoom", roomId) 
 
 
@@ -28,5 +28,4 @@ if (socket.connected) {
 }
 
 export default socket;
-
 

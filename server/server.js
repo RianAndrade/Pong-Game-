@@ -85,6 +85,10 @@ io.on("connection", (socket) => {
       io.emit("arrowDownResponse")
     })
 
+    socket.on("positionUpdate", (positions) => {
+        io.to("5555").emit("positionUpdate", positions);
+    })
+
 });
 
 app.get('/', (req, res) => {

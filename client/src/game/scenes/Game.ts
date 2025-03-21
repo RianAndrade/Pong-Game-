@@ -35,10 +35,12 @@ export class Game extends Scene
         this.player1.setCollideWorldBounds(true);
         this.player2.setCollideWorldBounds(true);
         this.bola.setCollideWorldBounds(true);
-
-      }
-    update () {
         
+
+
+        // inputaass 
+        
+                
         this.cursors = this.input.keyboard.createCursorKeys();
 
         this.keys = this.input.keyboard.addKeys({
@@ -46,42 +48,45 @@ export class Game extends Scene
             sDown: 'S'
 
         });
-        
-        const emitWDown = throttle(() => {
+
+        this.emitWDown = throttle(() => {
             socket.emit("wDown", "click w")
         }, 500);
 
-        const emitSDown = throttle(() => {
+        this.emitSDown = throttle(() => {
             socket.emit("sDown", "click S")
         }, 500)
-        
-        if(Phaser.Input.Keyboard.JustDown(this.keys.wDown)) 
-        {
-            emitWDown();
-        }
 
-        else if (Phaser.Input.Keyboard.JustDown(this.keys.sDown)) {
-            emitSDown()
-        } 
- 
-
-
-        // logica de emição 
-        
-        const emitArrowUp = throttle(() => {
+        this.emitArrowUp = throttle(() => {
             socket.emit("arrowUp", "seta para cima clicado")
         }, 150)
 
-        const emitArrowDown = throttle(() => {
+        this.emitArrowDown = throttle(() => {
             socket.emit("arrowDown", "Seta para baixo clicada")
         })
 
+
+
+      }
+    update () {
+
         
+        
+        if(Phaser.Input.Keyboard.JustDown(this.keys.wDown)) 
+        {
+            this.emitWDown();
+        }
+
+        else if (Phaser.Input.Keyboard.JustDown(this.keys.sDown)) {
+            this.emitSDown()
+        } 
+ 
+
         if (Phaser.Input.Keyboard.JustDown(this.cursors.up)) {   
-            emitArrowUp();
+            this.emitArrowUp();
         } 
         else if (Phaser.Input.Keyboard.JustDown(this.cursors.down)) {
-            emitArrowDown();
+            this.emitArrowDown();
         }
 
 

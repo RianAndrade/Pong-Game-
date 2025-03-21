@@ -77,13 +77,22 @@ export class Game extends Scene
             console.log("Seta para baixo clicado")
             this.player2.setVelocityY(360)
         })
+        
 
+        this.emitPositions = throttle(() => {
+            const positions = {
+                player1: { x: this.player1.x, y: this.player1.y },
+                player2: { x: this.player2.x, y: this.player2.y },
+                bola: { x: this.bola.x, y: this.bola.y }
+            };
+            socket.emit("positionUpdate", positions);
+        }, 100);
 
 
         
       }
     update () {       
-
+        this.emitPositions();
     }
 
 }
