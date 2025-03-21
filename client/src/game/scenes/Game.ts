@@ -28,14 +28,10 @@ export class Game extends Scene
         this.cameras.main.setBackgroundColor("#000fff");
         
 
-        // objetos dos jogadores e bola 
-
         this.player1 = this.physics.add.sprite(40, 450, 'player').setImmovable(true);
         this.player2 = this.physics.add.sprite(984, 450, 'player').setImmovable(true);
         this.bola = this.physics.add.sprite(500, 450, 'bola').setScale(0.5)
      
-        //para players e bola colidirem com as bordas do mapa sem sair 
-        
         this.player1.setCollideWorldBounds(true);
         this.player2.setCollideWorldBounds(true);
         this.bola.setCollideWorldBounds(true);
@@ -53,11 +49,11 @@ export class Game extends Scene
         
         const emitWDown = throttle(() => {
             socket.emit("wDown", "click w")
-        }, 150);
+        }, 500);
 
         const emitSDown = throttle(() => {
             socket.emit("sDown", "click S")
-        }, 150)
+        }, 500)
         
         if(Phaser.Input.Keyboard.JustDown(this.keys.wDown)) 
         {
@@ -80,13 +76,14 @@ export class Game extends Scene
             socket.emit("arrowDown", "Seta para baixo clicada")
         })
 
-        if (this.cursors.up.isDown)
-        {   
-            emitArrowUp()
+        
+        if (Phaser.Input.Keyboard.JustDown(this.cursors.up)) {   
+            emitArrowUp();
+        } 
+        else if (Phaser.Input.Keyboard.JustDown(this.cursors.down)) {
+            emitArrowDown();
         }
-        else if (this.cursors.down.isDown) {
-            emitArrowDown()
-        }
+
 
     }
 
