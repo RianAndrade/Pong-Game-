@@ -56,11 +56,6 @@ export class Game extends Scene
         this.physics.add.collider(this.player1, this.bola);
         this.physics.add.collider(this.player2, this.bola);
    
-
-        
-      }
-    update () {
-
         socket.on("wDownResponse", () => {
             console.log("W clicado")
             this.player1.setVelocityY(-360)
@@ -73,7 +68,7 @@ export class Game extends Scene
 
         // logica de movimentação do player2 
 
-      socket.on("upDownResponse", () => {
+        socket.on("upDownResponse", () => {
             console.log("Seta para cima clicado")
             this.player2.setVelocityY(-360)
         })
@@ -84,7 +79,10 @@ export class Game extends Scene
         })
 
 
+
         
+      }
+    update () {       
 
     }
 

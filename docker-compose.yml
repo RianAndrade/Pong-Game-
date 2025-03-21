@@ -8,7 +8,6 @@ services:
     volumes:
       - ./client:/client
   
-
   server:
     build: ./server/
     command: npm run dev

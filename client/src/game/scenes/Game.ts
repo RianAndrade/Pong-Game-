@@ -66,7 +66,7 @@ export class Game extends Scene
  
 
 
-        // logica de movimentação do player2 
+        // logica de emição 
         
         const emitArrowUp = throttle(() => {
             socket.emit("arrowUp", "seta para cima clicado")
