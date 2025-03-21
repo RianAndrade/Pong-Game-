@@ -16,4 +16,12 @@ services:
       - "4000:4000"
     volumes:
       - ./server:/server 
+  
+  pong-server:
+    build: ./server/
+    command: npm run dev -- --host
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./server/pong-server:/server 
 
