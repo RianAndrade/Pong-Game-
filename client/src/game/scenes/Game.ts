@@ -40,24 +40,6 @@ export class Game extends Scene
         this.player2.setCollideWorldBounds(true);
         this.bola.setCollideWorldBounds(true);
 
-
-        // para  a bola quicar, 1 para não reduzir e 0.9 ou menos para reduzir se outra força não for aplicada 
-        
-        this.bola.setBounce(1);
-        
-        //movimentação inicial da bola 
-        //aleatoriazar depoisssssssssssssss
-
-        this.bola.setVelocityX(1000);
-        this.bola.setVelocityY(50)
-        
-        // colisão de litle bolss com players 
-
-        this.physics.add.collider(this.player1, this.bola);
-        this.physics.add.collider(this.player2, this.bola);
-   
-
-        
       }
     update () {
         
@@ -86,31 +68,25 @@ export class Game extends Scene
             emitSDown()
         } 
  
-        socket.on("wDownResponse", () => {
-            console.log("W clicado")
-            this.player1.setVelocityY(-360)
-        })
 
-        socket.on("sDownResponse", () => {
-            console.log("S clicado")
-            this.player1.setVelocityY(360)
-        })
 
         // logica de movimentação do player2 
+        
+        const emitArrowUp = throttle(() => {
+            socket.emit("arrowUp", "seta para cima clicado")
+        }, 150)
+
+        const emitArrowDown = throttle(() => {
+            socket.emit("arrowDown", "Seta para baixo clicada")
+        })
 
         if (this.cursors.up.isDown)
         {   
-            this.player2.setVelocityY(-360);
-            
+            emitArrowUp()
         }
         else if (this.cursors.down.isDown) {
-            this.player2.setVelocityY(360);
+            emitArrowDown()
         }
-
-        else{
-            this.player2.setVelocityY(0)
-        }
-        
 
     }
 

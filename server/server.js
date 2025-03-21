@@ -8,15 +8,17 @@ const app = express();
 const httpServer = createServer(app);
 const port = 4000; 
 
-const clientUrl =  "http://localhost:8080"
-app.use(cors({ origin:clientUrl }));
+const allowedOrigins = ["http://localhost:8080", "http://localhost:5000"];
 
-const io = new Server(httpServer , {
+app.use(cors({ origin: allowedOrigins }));
+
+const io = new Server(httpServer, {
   cors: {
-    origin: clientUrl, 
+    origin: allowedOrigins,
     methods: ["GET", "POST"],
   },
 });
+
 
 const rooms = {}
 
@@ -71,6 +73,16 @@ io.on("connection", (socket) => {
     socket.on("sDown", (arg) => {
       console.log(arg)
       io.emit("sDownResponse")
+    })
+
+    socket.on("arrowUp", (arg) => {
+      console.log(arg)
+      io.emit("upDownResponse")
+    })
+
+    socket.on("arrowDown", (arg) => {
+      console.log(arg)
+      io.emit("arrowDownResponse")
     })
 
 });
