@@ -1,7 +1,7 @@
 import { io } from 'socket.io-client';
 
 // URL do servidor Socket.io
-const url = "http://localhost:4000";
+const url = "http://192.168.137.29:4000";
 
 // Conectando ao servidor
 const socket = io(url);
@@ -28,5 +28,4 @@ if (socket.connected) {
 }
 
 export default socket;
-
 

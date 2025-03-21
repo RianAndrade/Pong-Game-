@@ -11,15 +11,19 @@ const port = 4000;
 const allowedOrigins = ["http://localhost:8080",
                         "http://localhost:5000",
                         "http://192.168.137.29:8080",
-                        "http://192.168.137.29:5000",
-                        "http://192.168.137.29:4000"];
+                        "http://192.168.137.29:4000",
+];
 
-app.use(cors({ origin: allowedOrigins }));
+app.use(cors({ 
+  origin: allowedOrigins,
+  credentials: true              
+}));
 
 const io = new Server(httpServer, {
   cors: {
     origin: allowedOrigins,
     methods: ["GET", "POST"],
+    credentials: true
   },
 });
 
