@@ -92,17 +92,13 @@ export class Game extends Scene
 
         this.physics.world.on('worldbounds', (body, up, down, left, right) => {
             if (body.gameObject === this.bola && left) {
-            // Aqui a bola colidiu com a parede externa esquerda.
             console.log("Bola atingiu a parede esquerda!");
-            // Aqui você pode retornar true ou executar a ação desejada.
             }
         });
 
         this.physics.world.on('worldbounds', (body, up, down, left, right) => {
             if (body.gameObject === this.bola && right) {
-            // Aqui a bola colidiu com a parede externa esquerda.
             console.log("Bola atingiu a parede direita !");
-            // Aqui você pode retornar true ou executar a ação desejada.
             }
         });
 
