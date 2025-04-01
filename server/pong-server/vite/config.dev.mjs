@@ -8,7 +8,8 @@ export default defineConfig({
         react(),
     ],
     server: {
+        host: '0.0.0.0',
         port: 5000,
-        allowedHosts: 'ec2-3-148-234-148.us-east-2.compute.amazonaws.com'
+        allowedHosts: ['ec2-3-148-234-148.us-east-2.compute.amazonaws.com']
     }
 })
