@@ -1,7 +1,7 @@
 import { io } from 'socket.io-client';
 
 // URL do servidor Socket.io
-const url = "http://localhost:4000";
+const url = "http://ec2-3-148-234-148.us-east-2.compute.amazonaws.com:4000/";
 
 // Conectando ao servidor
 const socket = io(url);
@@ -18,7 +18,7 @@ socket.on("disconnect", () => {
 
 // Emissão para se juntar à sala '5555'
 const roomId = "5555";
-socket.emit("joinRoom", roomId) 
+socket.emit("joinRoom", roomId)
 
 
 if (socket.connected) {

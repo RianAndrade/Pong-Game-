@@ -8,22 +8,26 @@ const app = express();
 const httpServer = createServer(app);
 const port = 4000;
 
+const allowedOrigins = [
+
+  "http://ec2-3-148-234-148.us-east-2.compute.amazonaws.com:5000/",
+  "http://ec2-3-148-234-148.us-east-2.compute.amazonaws.com:8080/",
+  " http://ec2-3-148-234-148.us-east-2.compute.amazonaws.com:4000/"
+];
+
 app.use(cors({
-  origin: (origin, callback) => {
-    callback(null, true);
-  },
+  origin: allowedOrigins,
   credentials: true
 }));
 
 const io = new Server(httpServer, {
   cors: {
-    origin: (origin, callback) => {
-      callback(null, true);
-    },
+    origin: allowedOrigins,
     methods: ["GET", "POST"],
     credentials: true
-  }
+  },
 });
+
 
 const rooms = {}
 
