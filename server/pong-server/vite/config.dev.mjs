@@ -8,6 +8,7 @@ export default defineConfig({
         react(),
     ],
     server: {
-        port: 5000
+        port: 5000,
+        allowedHosts: 'all'
     }
 })
