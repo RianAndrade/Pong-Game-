@@ -8,24 +8,34 @@ const app = express();
 const httpServer = createServer(app);
 const port = 4000;
 
+// URLs permitidas sem espaços extras e sem barra final
 const allowedOrigins = [
-
-  "http://ec2-3-148-234-148.us-east-2.compute.amazonaws.com:5000/",
-  "http://ec2-3-148-234-148.us-east-2.compute.amazonaws.com:8080/",
-  " http://ec2-3-148-234-148.us-east-2.compute.amazonaws.com:4000/"
+  "http://ec2-3-148-234-148.us-east-2.compute.amazonaws.com:5000",
+  "http://ec2-3-148-234-148.us-east-2.compute.amazonaws.com:8080",
+  "http://ec2-3-148-234-148.us-east-2.compute.amazonaws.com:4000"
 ];
 
+// Configuração do CORS no Express utilizando função para validar a origem
 app.use(cors({
-  origin: allowedOrigins,
+  origin: function(origin, callback) {
+    // Permite requisições sem origem (como de apps mobile ou requests via curl)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      return callback(null, true);
+    } else {
+      return callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 }));
 
+// Configuração do socket.io com as opções de CORS
 const io = new Server(httpServer, {
   cors: {
     origin: allowedOrigins,
     methods: ["GET", "POST"],
     credentials: true
-  },
+  }
 });
 
 
